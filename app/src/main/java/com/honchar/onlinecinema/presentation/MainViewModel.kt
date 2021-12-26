@@ -1,8 +1,11 @@
 package com.honchar.onlinecinema.presentation
 
-import androidx.lifecycle.ViewModel
-import com.honchar.onlinecinema.core.base.BaseViewModel
+import com.honchar.onlinecinema.core.base.presentation.BaseViewModel
 
-class MainViewModel : BaseViewModel() {
+abstract class IMainViewModel: BaseViewModel(){
+
+}
+
+class MainViewModel : IMainViewModel() {
     // TODO: Implement the ViewModel
 }
