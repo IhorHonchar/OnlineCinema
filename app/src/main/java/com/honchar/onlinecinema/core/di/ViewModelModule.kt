@@ -1,11 +1,11 @@
 package com.honchar.onlinecinema.core.di
 
-import com.honchar.onlinecinema.presentation.IMainViewModel
-import com.honchar.onlinecinema.presentation.MainViewModel
+import com.honchar.onlinecinema.presentation.home.HomeViewModel
+import com.honchar.onlinecinema.presentation.home.IHomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val viewModel = module {
+val viewModelModule = module {
 
-    viewModel<IMainViewModel> { MainViewModel() }
+    viewModel<IHomeViewModel> { HomeViewModel() }
 }

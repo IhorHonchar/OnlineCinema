@@ -7,4 +7,9 @@
     <string name="logout_title">Logout</string>
     <string name="subscription_title">Subscription</string>
     <string name="theme_title">Theme</string>
+    <string name="see_all_title">See all</string>
+
+
+    <!--Home screen-->
+    <!--Home screen-->
 </resources>

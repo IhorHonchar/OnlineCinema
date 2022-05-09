@@ -16,6 +16,8 @@ abstract class BaseFragment<B : ViewBinding>(
     private val inflate: Inflate<B>
 ) : Fragment(layoutId) {
 
+    protected abstract val viewModel: BaseViewModel
+
     private var _binding: B? = null
     val binding: B
         get() = _binding!!
@@ -30,9 +32,22 @@ abstract class BaseFragment<B : ViewBinding>(
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        subscribeData()
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+    abstract fun initViews()
+    abstract fun subscribeData()
 
 }
