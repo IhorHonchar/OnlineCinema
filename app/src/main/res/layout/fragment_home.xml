@@ -8,6 +8,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:overScrollMode="never"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -15,23 +16,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpNewFilms"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvWoldPremier"
+                android:overScrollMode="never"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:background="@color/border_gray"
-                tools:layout_height="200dp" />
+                android:layout_height="350dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategoriesFilms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/home_categories_item"
                 tools:itemCount="2"/>
 
         </LinearLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 

@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="wrap_content">
-
-    <com.honchar.onlinecinema.core.views.FilmsCategory
-        android:id="@+id/categoryFilm"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-</FrameLayout>
+<com.honchar.onlinecinema.core.views.FilmsCategory xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/categoryFilm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/default_margin" />

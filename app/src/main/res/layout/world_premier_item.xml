@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPoster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPoster"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:background="@color/cardview_shadow_start_color" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/llInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        android:orientation="horizontal"
+        android:translationZ="2dp"
+        android:paddingVertical="@dimen/film_category_inner_margin"
+        android:background="@drawable/world_premier_info_bg"
+        android:layout_marginTop="-30dp"
+        app:layout_constraintEnd_toEndOf="@id/cvPoster"
+        app:layout_constraintStart_toStartOf="@id/cvPoster"
+        app:layout_constraintTop_toBottomOf="@+id/cvPoster">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_weight="1"
+            android:background="@drawable/category_film_gradient_part"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvFilmName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SubtitleTextStyle"
+                tools:text="Morbius" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRelease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/description_text_color"
+                android:textSize="@dimen/default_text_size"
+                android:layout_marginTop="@dimen/film_category_margin"
+                tools:text="Release: Januari 29" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:drawablePadding="@dimen/film_category_margin"
+                style="@style/CategoryFilmTextStyle"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:drawableStart="@drawable/ic_star"
+                tools:text="4.1" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

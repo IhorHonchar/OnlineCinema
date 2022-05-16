@@ -2,7 +2,9 @@ package com.honchar.onlinecinema.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.databinding.ActivityMainBinding
+import com.honchar.onlinecinema.presentation.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.flMainContainer, HomeFragment())
+            .commit()
     }
 
     override fun onDestroy() {

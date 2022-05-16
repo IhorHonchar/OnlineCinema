@@ -5,7 +5,7 @@
     android:id="@+id/cvFilm"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/film_category_margin"
+    android:layout_marginStart="16dp"
     app:cardCornerRadius="@dimen/default_card_corner_radius"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +21,7 @@
             android:layout_height="@dimen/film_category_preview_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/black" />
@@ -28,11 +29,11 @@
         <LinearLayout
             android:id="@+id/llFilmDetails"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="@drawable/category_film_gradient_part"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/film_category_inner_margin"
+            android:padding="@dimen/film_category_inner_margin"
+            android:background="@drawable/world_premier_info_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -40,8 +41,10 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvFilmName"
                 style="@style/CategoryFilmTextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
                 tools:text="Dune" />
 
             <LinearLayout
@@ -62,6 +65,7 @@
                     tools:text="3/8" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvFilmViews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_eye"
