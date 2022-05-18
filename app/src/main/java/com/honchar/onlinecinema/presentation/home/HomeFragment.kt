@@ -3,7 +3,6 @@ package com.honchar.onlinecinema.presentation.home
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
 import com.honchar.onlinecinema.core.base.presentation.BaseFragment
@@ -12,14 +11,14 @@ import com.honchar.onlinecinema.core.views.FilmsCategory
 import com.honchar.onlinecinema.databinding.FragmentHomeBinding
 import com.honchar.onlinecinema.databinding.HomeCategoriesItemBinding
 import com.honchar.onlinecinema.databinding.WorldPremierItemBinding
+import com.honchar.onlinecinema.presentation.MainActivity
+import com.honchar.onlinecinema.presentation.filmDetails.FilmDetailsFragment
 import com.honchar.onlinecinema.presentation.home.adapter.EndlessAdapter
 import com.honchar.onlinecinema.presentation.home.adapter.HomePageHolders
-import com.honchar.onlinecinema.presentation.home.model.WorldPremierFilm
 import com.mig35.carousellayoutmanager.CarouselLayoutManager
 import com.mig35.carousellayoutmanager.CarouselZoomPostLayoutListener
 import com.mig35.carousellayoutmanager.CenterScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     R.layout.fragment_home,
@@ -38,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             HomePageHolders.WorldPremierHolder(::onFilmClick)
         ) as EndlessAdapter
 
-    override val viewModel: IHomeViewModel by viewModel()
+    override val viewModel: HomeViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +55,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     override fun onFilmClick(film: FilmsCategory.Film) {
-        Toast.makeText(requireContext(), film.filmId, Toast.LENGTH_SHORT).show()
+        (requireActivity() as MainActivity).openFragment(FilmDetailsFragment())
     }
 
     override fun onSeeAllClick(filmCategory: FilmsCategory.FilmCategory) {

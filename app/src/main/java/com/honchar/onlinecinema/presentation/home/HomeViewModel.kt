@@ -6,14 +6,14 @@ import com.honchar.onlinecinema.core.base.presentation.BaseViewModel
 import com.honchar.onlinecinema.core.views.FilmsCategory
 import com.honchar.onlinecinema.core.views.FilmsCategory.FilmCategory
 
-abstract class IHomeViewModel: BaseViewModel(){
+abstract class HomeViewModel: BaseViewModel(){
     abstract val itemsLiveData: LiveData<List<FilmCategory>>
     abstract val topFilmsLiveData: LiveData<List<FilmsCategory.Film>>
 
     abstract fun getItems()
 }
 
-class HomeViewModel : IHomeViewModel() {
+class HomeViewModelImpl : HomeViewModel() {
     override val itemsLiveData = MutableLiveData<List<FilmCategory>>()
     override val topFilmsLiveData = MutableLiveData<List<FilmsCategory.Film>>()
 

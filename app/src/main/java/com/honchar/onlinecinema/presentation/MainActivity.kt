@@ -2,6 +2,7 @@ package com.honchar.onlinecinema.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.databinding.ActivityMainBinding
 import com.honchar.onlinecinema.presentation.home.HomeFragment
@@ -19,6 +20,12 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.flMainContainer, HomeFragment())
+            .commit()
+    }
+
+    fun openFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.flMainContainer, fragment)
             .commit()
     }
 

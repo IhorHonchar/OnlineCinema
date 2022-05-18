@@ -47,7 +47,7 @@ abstract class BaseFragment<B : ViewBinding>(
         super.onDestroyView()
     }
 
-    abstract fun initViews()
-    abstract fun subscribeData()
+    open fun initViews() = Unit
+    open fun subscribeData() = Unit
 
 }
