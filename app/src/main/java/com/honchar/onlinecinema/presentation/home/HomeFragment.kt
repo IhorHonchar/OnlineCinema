@@ -45,7 +45,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     override fun initViews() {
-        binding.rvCategoriesFilms.adapter = adapter
+        if (binding.rvCategoriesFilms.adapter == null)
+            binding.rvCategoriesFilms.adapter = adapter
         viewModel.getItems()
     }
 
@@ -71,7 +72,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         binding.rvWoldPremier.addOnScrollListener(CenterScrollListener())
         binding.rvWoldPremier.adapter = worldPremierAdapter
     }
-
 
 
 }

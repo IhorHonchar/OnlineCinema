@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,7 +30,8 @@
             android:background="?selectableItemBackgroundBorderless"
             android:gravity="center"
             android:text="@string/see_all_title"
-            android:textSize="@dimen/default_text_size" />
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

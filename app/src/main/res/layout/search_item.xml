@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvFilm"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    android:layout_marginEnd="8dp"
     app:rippleColor="@color/primary"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_marginVertical="@dimen/small_default_margin"
+    app:cardCornerRadius="@dimen/default_card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,23 +16,23 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivFilmPreview"
-            android:layout_width="@dimen/film_category_preview_width"
+            android:layout_width="0dp"
             android:layout_height="@dimen/film_category_preview_height"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/black" />
+            tools:background="@color/white" />
 
         <LinearLayout
             android:id="@+id/llFilmDetails"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/world_premier_info_bg"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="@dimen/film_category_inner_margin"
-            android:background="@drawable/world_premier_info_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -44,8 +42,8 @@
                 style="@style/CategoryFilmTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 tools:text="Dune" />
 
             <LinearLayout
@@ -65,19 +63,7 @@
                     android:textSize="@dimen/film_category_desc"
                     tools:text="3/8" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvFilmViews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_eye"
-                    android:drawablePadding="@dimen/film_category_margin"
-                    android:drawableTint="@color/description_text_color"
-                    android:textColor="@color/description_text_color"
-                    android:textSize="@dimen/film_category_desc"
-                    tools:text="23M+views" />
-
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -85,5 +71,3 @@
 
 
 </com.google.android.material.card.MaterialCardView>
-
-

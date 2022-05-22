@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="?colorOnSecondary"
     android:background="@color/black">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +29,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPoster"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="300dp"
                     android:scaleType="centerCrop"
                     tools:background="@color/white"/>
 
@@ -37,6 +38,8 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:background="?selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_play"
                     app:tint="@color/black"/>
@@ -87,30 +90,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginHorizontal="@dimen/default_margin"
-                app:layout_constraintEnd_toStartOf="@id/ivShare"
+                app:layout_constraintEnd_toStartOf="@id/ivMore"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vDivider" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivLike"
+                android:id="@+id/ivMore"
                 android:layout_width="@dimen/film_details_action_btns_size"
                 android:layout_height="@dimen/film_details_action_btns_size"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="?selectableItemBackgroundBorderless"
                 app:layout_constraintEnd_toEndOf="@id/vDivider"
                 app:layout_constraintTop_toTopOf="@id/cgCategories"
-                app:srcCompat="@drawable/ic_favorite"
-                app:tint="@color/description_text_color" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivShare"
-                android:layout_width="@dimen/film_details_action_btns_size"
-                android:layout_height="@dimen/film_details_action_btns_size"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:background="?selectableItemBackgroundBorderless"
-                android:rotation="@integer/material_motion_duration_long_1"
-                app:layout_constraintEnd_toStartOf="@id/ivLike"
-                app:layout_constraintTop_toTopOf="@id/ivLike"
-                app:srcCompat="@drawable/ic_send"
+                app:srcCompat="@drawable/ic_more"
                 app:tint="@color/description_text_color" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -127,10 +120,9 @@
                 android:id="@+id/tvFilmDesc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                style="@style/DefaultTextStyle"
                 android:layout_marginTop="@dimen/small_default_margin"
-                android:textColor="@color/description_text_color"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@id/ivLike"
+                app:layout_constraintEnd_toEndOf="@id/ivMore"
                 app:layout_constraintStart_toStartOf="@id/tvFilmDescTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvFilmDescTitle"
                 tools:text="okmevoemrvevn eornerongergn oerngerngierjn oienrginin rng n nggiengrieng ejrngejnrgekrjng erngiejnrgeijgnei" />

@@ -3,8 +3,11 @@ package com.honchar.onlinecinema.presentation.filmDetails
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.honchar.onlinecinema.R
@@ -13,6 +16,7 @@ import com.honchar.onlinecinema.core.base.presentation.BaseFragment
 import com.honchar.onlinecinema.core.extensions.loadImage
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.core.extensions.setClickListener
+import com.honchar.onlinecinema.core.views.AppBarStateChangeListener
 import com.honchar.onlinecinema.databinding.FragmentFilmDetailsBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsItemBinding
 import com.honchar.onlinecinema.presentation.filmDetails.adapter.ActorHolder
@@ -56,10 +60,6 @@ class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
             ivPoster.loadImage(film.poster, 0)
             tvFilmName.text = film.name
             tvFilmDesc.text = film.description
-            val likeColorRes =
-                if (film.isFavorite) android.R.color.holo_red_dark else R.color.description_text_color
-            ivLike.imageTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), likeColorRes))
             initChips(film.categories)
             adapter.loadItems(film.actors)
         }
@@ -78,9 +78,25 @@ class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
     }
 
     private fun initListeners() {
-        binding.ivLike.setClickListener(::onLikeClicked)
-        binding.ivShare.setClickListener(::onShareClick)
+        binding.ivMore.setClickListener(::onMoreClick)
         binding.ivPlay.setClickListener(::onPlayClick)
+
+        binding.appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener(){
+            override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
+                when(state) {
+                    State.COLLAPSED->{
+
+                    }
+                    State.EXPANDED->{
+
+                    }
+                    State.IDLE->{
+
+                    }
+                }
+            }
+
+        })
     }
 
     private fun onLikeClicked() {
@@ -88,6 +104,11 @@ class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
     }
 
     private fun onShareClick() {
+
+    }
+
+
+    private fun onMoreClick() {
 
     }
 
