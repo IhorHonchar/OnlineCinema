@@ -2,80 +2,54 @@ package com.honchar.onlinecinema.presentation.search
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.honchar.onlinecinema.R
-import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
 import com.honchar.onlinecinema.core.base.presentation.BaseFragment
-import com.honchar.onlinecinema.core.extensions.observeData
-import com.honchar.onlinecinema.core.extensions.setClickListener
-import com.honchar.onlinecinema.databinding.FilterItemBinding
 import com.honchar.onlinecinema.databinding.FragmentSearchBinding
-import com.honchar.onlinecinema.databinding.SearchItemBinding
-import com.honchar.onlinecinema.presentation.search.adapter.SearchHolders
-import com.honchar.onlinecinema.presentation.search.model.FilterItem
-import com.honchar.onlinecinema.presentation.search.model.FindFilmModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.honchar.onlinecinema.presentation.search.searchFilter.SearchFilterFragment
+import com.honchar.onlinecinema.presentation.search.searchQuery.SearchQueryFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SearchFragment: BaseFragment<FragmentSearchBinding>(
+class SearchFragment : BaseFragment<FragmentSearchBinding>(
     R.layout.fragment_search,
     FragmentSearchBinding::inflate
 ) {
 
-    override val viewModel: SearchViewModel by viewModel()
+    override val viewModel: SearchViewModel by sharedViewModel()
 
-    private val filmsAdapter = BaseViewBindingAdapter()
-        .map(
-            SearchItemBinding::inflate,
-            SearchHolders.FoundFilmHolder(::onFilmClick)
-        )
-
-    private val filtersAdapter = BaseViewBindingAdapter()
-        .map(
-            FilterItemBinding::inflate,
-            SearchHolders.FilterHolder(::onFilterClose)
-        )
+    private val filter: String?
+        get() = arguments?.getString(FILTERS)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initListeners()
-        viewModel.getFilters()
-        viewModel.findFilm("")
+        binding.vpSearch.adapter = SearchPagerAdapter(requireActivity())
+        TabLayoutMediator(binding.tbSearch, binding.vpSearch) { tab, position ->
+            tab.text = getString(
+                if (position == FILTER_PAGE) R.string.search_filter_tab_title
+                else R.string.search_query_tab_title
+            )
+        }.attach()
     }
 
-    override fun initViews() {
-        super.initViews()
-        if (binding.rvFilms.adapter == null)
-            binding.rvFilms.adapter = filmsAdapter
-        if (binding.rvFilters.adapter == null)
-            binding.rvFilters.adapter = filtersAdapter
+    private inner class SearchPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = PAGE_COUNT
+
+        override fun createFragment(position: Int): Fragment {
+            return if (position == FILTER_PAGE) {
+                SearchFilterFragment().apply { arguments = bundleOf(FILTERS to filter) }
+            } else {
+                SearchQueryFragment()
+            }
+        }
     }
 
-    override fun subscribeData() {
-        super.subscribeData()
-        observeData(viewModel.filmsLiveData, ::showResult)
-        observeData(viewModel.filtersLiveData, ::loadFilters)
-    }
-
-    private fun initListeners() {
-        binding.ivFilters.setClickListener(::onFilterBtnClick)
-    }
-
-    private fun showResult(result: List<FindFilmModel>){
-        filmsAdapter.loadItems(result)
-    }
-
-    private fun loadFilters(filtersList: List<FilterItem>){
-        filtersAdapter.loadItems(filtersList)
-    }
-
-    private fun onFilmClick(film: FindFilmModel) {
-
-    }
-
-    private fun onFilterClose(filter: FilterItem) {
-
-    }
-
-    private fun onFilterBtnClick() {
-
+    companion object {
+        const val FILTERS = "filters"
+        private const val PAGE_COUNT = 2
+        private const val FILTER_PAGE = 0
     }
 }

@@ -7,10 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     app:cardCornerRadius="@dimen/default_card_corner_radius"
-    app:rippleColor="@color/primary"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:rippleColor="@color/primary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

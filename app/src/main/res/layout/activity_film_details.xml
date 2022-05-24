@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="?colorOnSecondary"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:backgroundTint="?colorOnSecondary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -20,38 +20,11 @@
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="scroll">
 
-            <FrameLayout
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/exoPlayerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:isScrollContainer="false"
-                app:layout_collapseMode="none">
+                android:layout_height="@dimen/video_player_height" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivPoster"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:visibility="invisible"
-                    android:scaleType="centerCrop"
-                    tools:background="@color/white"/>
-
-                <VideoView
-                    android:id="@+id/vvFilm"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"/>
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivPlay"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    android:visibility="gone"
-                    android:focusable="true"
-                    android:background="?selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_play"
-                    app:tint="@color/black"/>
-
-            </FrameLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -60,6 +33,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,9 +56,9 @@
                 android:id="@+id/vDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
                 android:background="@color/description_text_color"
-                android:layout_marginHorizontal="@dimen/default_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvFilmName" />
@@ -93,8 +67,8 @@
                 android:id="@+id/cgCategories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginHorizontal="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
                 app:layout_constraintEnd_toStartOf="@id/ivMore"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vDivider" />
@@ -103,9 +77,9 @@
                 android:id="@+id/ivMore"
                 android:layout_width="@dimen/film_details_action_btns_size"
                 android:layout_height="@dimen/film_details_action_btns_size"
+                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?selectableItemBackgroundBorderless"
                 app:layout_constraintEnd_toEndOf="@id/vDivider"
                 app:layout_constraintTop_toTopOf="@id/cgCategories"
                 app:srcCompat="@drawable/ic_more"
@@ -123,9 +97,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvFilmDesc"
+                style="@style/DefaultTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="@style/DefaultTextStyle"
                 android:layout_marginTop="@dimen/small_default_margin"
                 app:layout_constraintEnd_toEndOf="@id/ivMore"
                 app:layout_constraintStart_toStartOf="@id/tvFilmDescTitle"
@@ -134,25 +108,25 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvStarCastTitle"
+                style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TitleTextStyle"
-                app:layout_constraintTop_toBottomOf="@id/tvFilmDesc"
-                app:layout_constraintStart_toStartOf="@id/tvFilmDesc"
                 android:layout_marginTop="@dimen/default_margin"
-                android:text="@string/film_details_star_cast_title"/>
-            
+                android:text="@string/film_details_star_cast_title"
+                app:layout_constraintStart_toStartOf="@id/tvFilmDesc"
+                app:layout_constraintTop_toBottomOf="@id/tvFilmDesc" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvStars"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/small_default_margin"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvStarCastTitle"
-                android:layout_marginTop="@dimen/small_default_margin"
-                tools:listitem="@layout/view_films_item"/>
+                tools:listitem="@layout/view_films_item" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

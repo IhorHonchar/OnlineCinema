@@ -17,5 +17,17 @@
     <!--FilmDetails-->
     <string name="film_details_desc_title">Descriptions</string>
     <string name="film_details_star_cast_title">Star Cast</string>
+    <string name="film_details_title_activity">FilmDetailsActivity</string>
     <!--FilmDetails-->
+
+    <!--Search screen-->
+    <string name="search_filter_tab_title">Categories</string>
+    <string name="search_query_tab_title">Search</string>
+    <!--Search screen-->
+
+    <!--Account screen-->
+    <string name="account_favorite_setting">Favorite</string>
+    <string name="account_wishlist_setting">Wishlist</string>
+    <string name="account_logout_setting">Log out</string>
+    <!--Account screen-->
 </resources>

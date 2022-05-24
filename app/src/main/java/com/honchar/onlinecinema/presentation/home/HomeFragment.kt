@@ -7,12 +7,11 @@ import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
 import com.honchar.onlinecinema.core.base.presentation.BaseFragment
 import com.honchar.onlinecinema.core.extensions.observeData
+import com.honchar.onlinecinema.core.extensions.openFilm
 import com.honchar.onlinecinema.core.views.FilmsCategory
 import com.honchar.onlinecinema.databinding.FragmentHomeBinding
 import com.honchar.onlinecinema.databinding.HomeCategoriesItemBinding
 import com.honchar.onlinecinema.databinding.WorldPremierItemBinding
-import com.honchar.onlinecinema.presentation.MainActivity
-import com.honchar.onlinecinema.presentation.filmDetails.FilmDetailsFragment
 import com.honchar.onlinecinema.presentation.home.adapter.EndlessAdapter
 import com.honchar.onlinecinema.presentation.home.adapter.HomePageHolders
 import com.mig35.carousellayoutmanager.CarouselLayoutManager
@@ -55,9 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         observeData(viewModel.topFilmsLiveData, worldPremierAdapter::loadItems)
     }
 
-    override fun onFilmClick(film: FilmsCategory.Film) {
-        (requireActivity() as MainActivity).openFragment(FilmDetailsFragment())
-    }
+    override fun onFilmClick(film: FilmsCategory.Film) = openFilm(film.filmId)
 
     override fun onSeeAllClick(filmCategory: FilmsCategory.FilmCategory) {
         Toast.makeText(requireContext(), filmCategory.filmCategoryTitle, Toast.LENGTH_SHORT).show()
@@ -70,7 +67,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         binding.rvWoldPremier.layoutManager = lm
         binding.rvWoldPremier.setHasFixedSize(false)
         binding.rvWoldPremier.addOnScrollListener(CenterScrollListener())
-        binding.rvWoldPremier.adapter = worldPremierAdapter
+        if (binding.rvWoldPremier.adapter == null)
+            binding.rvWoldPremier.adapter = worldPremierAdapter
     }
 
 

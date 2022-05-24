@@ -12,6 +12,8 @@
     <dimen name="film_category_inner_margin">8dp</dimen>
     <dimen name="film_details_action_btns_size">35dp</dimen>
 
+    <dimen name="video_player_height">250dp</dimen>
+
 
     <dimen name="h1_title">22sp</dimen>
     <dimen name="default_text_size">16sp</dimen>

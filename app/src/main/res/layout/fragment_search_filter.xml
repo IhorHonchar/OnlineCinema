@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvFilters"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/small_default_margin"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:layout_marginTop="@dimen/small_default_margin"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toStartOf="@id/ivFilters"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/filter_item" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivFilters"
+                    android:layout_width="@dimen/film_details_action_btns_size"
+                    android:layout_height="@dimen/film_details_action_btns_size"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/rvFilters"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/rvFilters"
+                    app:srcCompat="@drawable/ic_filter_list"
+                    app:tint="@color/description_text_color" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFilms"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="8dp"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:spanCount="3"
+        tools:itemCount="12"
+        tools:listitem="@layout/search_item" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -14,7 +14,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
-    
+
     <style name="TitleTextStyle" parent="TextAppearance.AppCompat.SearchResult.Title">
         <item name="android:textColor">@color/title_text_color</item>
     </style>
@@ -31,5 +31,14 @@
         <item name="android:textSize">@dimen/default_text_size</item>
         <item name="android:textColor">@color/description_text_color</item>
     </style>
+
+    <style name="Theme.OnlineCinema.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.OnlineCinema.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.OnlineCinema.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

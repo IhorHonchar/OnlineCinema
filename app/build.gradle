@@ -46,6 +46,11 @@ dependencies {
     def timber = "4.7.1"
     def lifecycle_version = "2.4.0"
     def okhttp_version = "4.9.0"
+    def mediaVersion = "1.0.0-alpha03"
+
+    implementation "androidx.media3:media3-exoplayer:$mediaVersion"
+    implementation "androidx.media3:media3-ui:$mediaVersion"
+    implementation "androidx.media3:media3-exoplayer-dash:$mediaVersion"
 
 
 

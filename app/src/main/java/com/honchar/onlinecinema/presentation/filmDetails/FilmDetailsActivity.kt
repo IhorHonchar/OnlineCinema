@@ -1,23 +1,20 @@
 package com.honchar.onlinecinema.presentation.filmDetails
 
-import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
-import com.honchar.onlinecinema.core.base.presentation.BaseFragment
-import com.honchar.onlinecinema.core.extensions.loadImage
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.core.extensions.setClickListener
 import com.honchar.onlinecinema.core.views.AppBarStateChangeListener
-import com.honchar.onlinecinema.databinding.FragmentFilmDetailsBinding
+import com.honchar.onlinecinema.databinding.ActivityFilmDetailsBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsItemBinding
 import com.honchar.onlinecinema.presentation.filmDetails.adapter.ActorHolder
 import com.honchar.onlinecinema.presentation.filmDetails.model.ActorModel
@@ -25,14 +22,17 @@ import com.honchar.onlinecinema.presentation.filmDetails.model.CategoryModel
 import com.honchar.onlinecinema.presentation.filmDetails.model.FilmDetailsModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
-    R.layout.fragment_film_details,
-    FragmentFilmDetailsBinding::inflate
-) {
-    override val viewModel: FilmDetailsViewModel by viewModel()
+class FilmDetailsActivity : AppCompatActivity() {
+
+    private var _binding: ActivityFilmDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    private var exoPlayer: ExoPlayer? = null
+
+    private val viewModel: FilmDetailsViewModel by viewModel()
 
     private val filmId: String?
-        get() = arguments?.getString(FILM_ID)
+        get() = intent.getStringExtra(FILM_ID)
 
     private val adapter = BaseViewBindingAdapter()
         .map(
@@ -40,36 +40,63 @@ class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
             ActorHolder(::onActorClick)
         )
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        _binding = ActivityFilmDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initViews()
         initListeners()
-        viewModel.getFilm("it")
+        initPlayer()
+        subscribeData()
+        viewModel.getFilm(filmId.orEmpty())
     }
 
-    override fun initViews() {
-        super.initViews()
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        exoPlayer?.stop()
+    }
+
+    private fun initViews() {
         binding.rvStars.adapter = adapter
     }
 
-    override fun subscribeData() {
+    private fun subscribeData() {
         observeData(viewModel.filmDetails, ::initData)
     }
 
     private fun initData(film: FilmDetailsModel) {
         with(binding) {
-            ivPoster.loadImage(film.poster, 0)
             tvFilmName.text = film.name
             tvFilmDesc.text = film.description
             initChips(film.categories)
             adapter.loadItems(film.actors)
         }
+
+        try {
+            val mediaItem: MediaItem = MediaItem.fromUri(Uri.parse(film.videoUrl))
+            exoPlayer?.setMediaItem(mediaItem)
+            exoPlayer?.prepare()
+        } catch (e: Exception) {
+            Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+    private fun  initPlayer() {
+        exoPlayer = ExoPlayer.Builder(this).build().also { exoPlayer ->
+            binding.exoPlayerView.player = exoPlayer
+        }
+        exoPlayer?.playWhenReady = false
     }
 
     private fun initChips(categories: List<CategoryModel>) {
         val chipCorners = ShapeAppearanceModel()
-            .withCornerSize(requireContext().resources.getDimension(R.dimen.default_card_corner_radius))
+            .withCornerSize(this.resources.getDimension(R.dimen.default_card_corner_radius))
         categories.forEach { category ->
-            Chip(requireContext()).apply {
+            Chip(this).apply {
                 text = category.name
                 shapeAppearanceModel = chipCorners
                 setOnClickListener { onChipClick(category) }
@@ -79,7 +106,6 @@ class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
 
     private fun initListeners() {
         binding.ivMore.setClickListener(::onMoreClick)
-        binding.ivPlay.setClickListener(::onPlayClick)
 
         binding.appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener(){
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
@@ -112,16 +138,12 @@ class FilmDetailsFragment : BaseFragment<FragmentFilmDetailsBinding>(
 
     }
 
-    private fun onPlayClick() {
-
-    }
-
     private fun onActorClick(actorModel: ActorModel) {
 
     }
 
     private fun onChipClick(category: CategoryModel) {
-        Toast.makeText(requireContext(), category.id.plus(category.name), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, category.id.plus(category.name), Toast.LENGTH_SHORT).show()
     }
 
     companion object {
