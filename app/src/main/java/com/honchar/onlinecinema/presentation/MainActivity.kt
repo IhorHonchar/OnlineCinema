@@ -1,52 +1,45 @@
 package com.honchar.onlinecinema.presentation
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.honchar.onlinecinema.R
+import com.honchar.onlinecinema.core.navigation.NavigationHandler
 import com.honchar.onlinecinema.databinding.ActivityMainBinding
 import com.honchar.onlinecinema.presentation.account.AccountFragment
 import com.honchar.onlinecinema.presentation.home.HomeFragment
 import com.honchar.onlinecinema.presentation.search.SearchFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationHandler {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding!!
 
-    private var currentItem: Int = R.id.library
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.flMainContainer, HomeFragment())
-            .commit()
+        displayFragment(HomeFragment(), HomeFragment::class.java.name)
 
         binding.nvBottom.setOnItemSelectedListener {
-            val fragment = when (it.itemId) {
-                R.id.library -> {
-                    HomeFragment()
-                }
-                R.id.search -> {
-                    SearchFragment()
-                }
-                R.id.profile -> {
-                    AccountFragment()
-                }
-                else -> AccountFragment()
-            }
-            openFragment(fragment)
+            navigationItemClick(it)
             true
+        }
+
+        intent.extras?.getBoolean(IS_GUEST)?.let {
+
         }
     }
 
-    fun openFragment(fragment: Fragment) {
+    override fun displayFragment(frag: Fragment, backStack: String?) {
         supportFragmentManager.beginTransaction()
-            .addToBackStack(fragment::class.java.name)
-            .add(R.id.flMainContainer, fragment)
+            .replace(binding.flMainContainer.id, frag).apply {
+                backStack?.let {
+                    addToBackStack(it)
+                }
+            }
             .commit()
     }
 
@@ -59,5 +52,35 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun navigationItemClick(item: MenuItem) {
+        val fragment = when (item.itemId) {
+            R.id.library -> {
+                HomeFragment()
+            }
+            R.id.search -> {
+                SearchFragment()
+            }
+            R.id.profile -> {
+                AccountFragment()
+            }
+            else -> null
+        }
+        fragment?.let { displayFragment(it, it.javaClass::class.java.name) }
+    }
+
+    private inline fun <reified T : Fragment> exitTo() {
+        var count = supportFragmentManager.backStackEntryCount
+        while (count != 0
+            && supportFragmentManager.getBackStackEntryAt(count - 1).name != T::class.java.name
+        ) {
+            supportFragmentManager.popBackStack()
+            count--
+        }
+    }
+
+    companion object {
+        const val IS_GUEST = "is_guest"
     }
 }

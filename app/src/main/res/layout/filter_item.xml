@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/small_default_margin">
+        android:paddingHorizontal="@dimen/small_default_margin"
+        android:paddingVertical="3dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvFilterName"

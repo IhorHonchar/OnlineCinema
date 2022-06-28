@@ -1,22 +1,21 @@
 package com.honchar.onlinecinema.presentation.home
 
-import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.honchar.onlinecinema.R
+import com.honchar.onlinecinema.core.base.adapter.BaseFragmentAdapter
 import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
+import com.honchar.onlinecinema.core.base.adapter.HorizontalMarginItemDecoration
 import com.honchar.onlinecinema.core.base.presentation.BaseFragment
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.core.extensions.openFilm
 import com.honchar.onlinecinema.core.views.FilmsCategory
 import com.honchar.onlinecinema.databinding.FragmentHomeBinding
 import com.honchar.onlinecinema.databinding.HomeCategoriesItemBinding
-import com.honchar.onlinecinema.databinding.WorldPremierItemBinding
-import com.honchar.onlinecinema.presentation.home.adapter.EndlessAdapter
 import com.honchar.onlinecinema.presentation.home.adapter.HomePageHolders
-import com.mig35.carousellayoutmanager.CarouselLayoutManager
-import com.mig35.carousellayoutmanager.CarouselZoomPostLayoutListener
-import com.mig35.carousellayoutmanager.CenterScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
@@ -24,34 +23,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::inflate
 ), FilmsCategory.FilmCategoryClickListener {
 
+    override val viewModel: HomeViewModel by viewModel()
+
     private val adapter = BaseViewBindingAdapter()
         .map(
             HomeCategoriesItemBinding::inflate,
             HomePageHolders.FilmsCategoriesHolder(this)
         )
 
-    private val worldPremierAdapter = EndlessAdapter()
-        .map(
-            WorldPremierItemBinding::inflate,
-            HomePageHolders.WorldPremierHolder(::onFilmClick)
-        ) as EndlessAdapter
-
-    override val viewModel: HomeViewModel by viewModel()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initHorizontalAdapter()
-    }
-
     override fun initViews() {
-        if (binding.rvCategoriesFilms.adapter == null)
-            binding.rvCategoriesFilms.adapter = adapter
+        binding.rvCategoriesFilms.adapter = adapter
         viewModel.getItems()
     }
 
     override fun subscribeData() {
         observeData(viewModel.itemsLiveData, adapter::loadItems)
-        observeData(viewModel.topFilmsLiveData, worldPremierAdapter::loadItems)
+        observeData(viewModel.topFilmsLiveData, ::initFilms)
     }
 
     override fun onFilmClick(film: FilmsCategory.Film) = openFilm(film.filmId)
@@ -60,16 +47,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         Toast.makeText(requireContext(), filmCategory.filmCategoryTitle, Toast.LENGTH_SHORT).show()
     }
 
-    private fun initHorizontalAdapter() {
-        val lm = CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL)
-        lm.setPostLayoutListener(CarouselZoomPostLayoutListener())
-        lm.scrollToPosition(Integer.MAX_VALUE / 2)
-        binding.rvWoldPremier.layoutManager = lm
-        binding.rvWoldPremier.setHasFixedSize(false)
-        binding.rvWoldPremier.addOnScrollListener(CenterScrollListener())
-        if (binding.rvWoldPremier.adapter == null)
-            binding.rvWoldPremier.adapter = worldPremierAdapter
+    private fun initFilms(films: List<FilmsCategory.Film>) {
+        val list = arrayListOf<FilmsCategory.Film>()
+        with(films.size) {
+            repeat(this + 3) { index ->
+                list.add(films[(index + this) % this])
+            }
+        }
+        initCardPages(if (films.size < 3) films else list)
     }
 
-
+    private fun initCardPages(films: List<FilmsCategory.Film>) {
+        val fragments = mutableListOf<BaseFragmentAdapter.FragmentInfoContainer>()
+        films.forEach { film ->
+            fragments.add(
+                BaseFragmentAdapter.FragmentInfoContainer(
+                    FilmFragment::class.java,
+                    bundleOf(FilmFragment.FILM to film)
+                )
+            )
+        }
+        binding.vpWoldPremier.adapter = BaseFragmentAdapter(childFragmentManager, lifecycle, fragments)
+        TabLayoutMediator(binding.tabs, binding.vpWoldPremier) { _, _ -> }.attach()
+    }
 }

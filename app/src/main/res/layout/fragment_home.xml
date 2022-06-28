@@ -17,12 +17,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvWoldPremier"
-                android:overScrollMode="never"
-                android:background="@android:color/transparent"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpWoldPremier"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"/>
+                android:layout_height="400dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                app:tabBackground="@drawable/selector_tab_indicator"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabRippleColor="@android:color/transparent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategoriesFilms"

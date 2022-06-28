@@ -2,6 +2,7 @@ package com.honchar.onlinecinema
 
 import android.app.Application
 import androidx.viewbinding.BuildConfig
+import com.honchar.onlinecinema.core.di.dataModule
 import com.honchar.onlinecinema.core.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -20,6 +21,7 @@ class OnlineCinemaApp: Application() {
             androidContext(this@OnlineCinemaApp)
             modules(
                 viewModelModule,
+                dataModule,
             )
         }
 

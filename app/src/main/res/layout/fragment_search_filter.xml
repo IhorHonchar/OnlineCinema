@@ -40,15 +40,30 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivFilters"
-                    android:layout_width="@dimen/film_details_action_btns_size"
-                    android:layout_height="@dimen/film_details_action_btns_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:layout_marginEnd="@dimen/small_default_margin"
+                    android:focusable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/rvFilters"
+                    app:layout_constraintEnd_toStartOf="@id/ivFilmsView"
+                    app:layout_constraintTop_toTopOf="@+id/rvFilters"
+                    app:srcCompat="@drawable/ic_filter_list"
+                    app:tint="@color/description_text_color" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivFilmsView"
+                    android:layout_width="24dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/small_default_margin"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     app:layout_constraintBottom_toBottomOf="@+id/rvFilters"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/rvFilters"
-                    app:srcCompat="@drawable/ic_filter_list"
+                    app:srcCompat="@drawable/ic_linear_view"
                     app:tint="@color/description_text_color" />
 
 

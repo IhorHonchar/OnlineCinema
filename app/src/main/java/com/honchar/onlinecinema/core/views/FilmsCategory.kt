@@ -1,6 +1,7 @@
 package com.honchar.onlinecinema.core.views
 
 import android.content.Context
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -13,6 +14,7 @@ import com.honchar.onlinecinema.core.extensions.setClickListener
 import com.honchar.onlinecinema.databinding.ViewFilmsCategoryBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsItemBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsMoreItemBinding
+import kotlinx.android.parcel.Parcelize
 
 class FilmsCategory @JvmOverloads constructor(
     context: Context,
@@ -72,6 +74,7 @@ class FilmsCategory @JvmOverloads constructor(
         }
     }
 
+    @Parcelize
     data class Film(
         val filmId: String,
         val filmName: String,
@@ -80,7 +83,7 @@ class FilmsCategory @JvmOverloads constructor(
         val filmViews: String,
         val filmRelease: String,
         @DrawableRes val placeholder: Int
-    )
+    ): Parcelable
 
     data class FilmCategory(
         val filmCategoryTitle: String,

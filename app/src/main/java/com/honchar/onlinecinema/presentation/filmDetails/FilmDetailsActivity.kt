@@ -85,11 +85,16 @@ class FilmDetailsActivity : AppCompatActivity() {
     }
 
     @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-    private fun  initPlayer() {
-        exoPlayer = ExoPlayer.Builder(this).build().also { exoPlayer ->
-            binding.exoPlayerView.player = exoPlayer
+    private fun initPlayer() {
+        viewModel.playerLiveData.value?.let {
+            binding.exoPlayerView.player = it
+        } ?: run {
+            exoPlayer = ExoPlayer.Builder(this).build().also { exoPlayer ->
+                exoPlayer.playWhenReady = false
+                viewModel.savePlayer(exoPlayer)
+                binding.exoPlayerView.player = exoPlayer
+            }
         }
-        exoPlayer?.playWhenReady = false
     }
 
     private fun initChips(categories: List<CategoryModel>) {

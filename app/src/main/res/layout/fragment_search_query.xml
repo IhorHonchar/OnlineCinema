@@ -19,20 +19,40 @@
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="scroll">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etSearch"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/default_margin"
                     android:layout_marginTop="@dimen/small_default_margin"
+                    android:layout_weight="1"
                     android:background="@drawable/world_premier_info_bg"
                     android:drawableStart="@drawable/ic_search"
-                    android:padding="@dimen/film_category_inner_margin"
+                    android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:maxLength="80"
-                    android:imeOptions="actionSearch"
+                    android:padding="@dimen/film_category_inner_margin"
                     android:textColor="@color/description_text_color"
                     android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivFilmsView"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/small_default_margin"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@drawable/ic_linear_view"
+                    app:tint="@color/description_text_color" />
+
+            </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

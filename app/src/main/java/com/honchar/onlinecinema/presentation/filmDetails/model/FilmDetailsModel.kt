@@ -1,5 +1,9 @@
 package com.honchar.onlinecinema.presentation.filmDetails.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class FilmDetailsModel(
     val name: String,
     val poster: String,
@@ -8,4 +12,4 @@ data class FilmDetailsModel(
     val isFavorite: Boolean,
     val categories: List<CategoryModel>,
     val actors: List<ActorModel>
-)
+): Parcelable

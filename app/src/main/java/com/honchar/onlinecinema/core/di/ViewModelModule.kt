@@ -1,5 +1,6 @@
 package com.honchar.onlinecinema.core.di
 
+import com.honchar.onlinecinema.core.base.presentation.StubViewModel
 import com.honchar.onlinecinema.presentation.account.AccountViewModel
 import com.honchar.onlinecinema.presentation.account.AccountViewModelImpl
 import com.honchar.onlinecinema.presentation.filmDetails.FilmDetailsViewModel
@@ -13,6 +14,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
+    viewModel<StubViewModel> { StubViewModel() }
     viewModel<HomeViewModel> { HomeViewModelImpl() }
     viewModel<FilmDetailsViewModel> { FilmDetailsViewModelImpl() }
     viewModel<SearchViewModel> { SearchViewModelImpl() }
