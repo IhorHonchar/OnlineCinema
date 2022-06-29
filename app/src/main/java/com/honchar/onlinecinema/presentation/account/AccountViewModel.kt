@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.core.base.presentation.BaseViewModel
+import com.honchar.onlinecinema.presentation.FilmsFactory
 import com.honchar.onlinecinema.presentation.account.model.AccountSettingModel
 import com.honchar.onlinecinema.presentation.account.model.SettingAction
 import com.honchar.onlinecinema.presentation.account.model.UserDataModel
@@ -33,6 +34,16 @@ class AccountViewModelImpl : AccountViewModel() {
                 action = SettingAction.Favorite
             ),
             AccountSettingModel(
+                icon = R.drawable.ic_edit,
+                title = R.string.account_edit_setting,
+                action = SettingAction.Edit
+            ),
+            AccountSettingModel(
+                icon = R.drawable.ic_language,
+                title = R.string.language_title,
+                action = SettingAction.Language
+            ),
+            AccountSettingModel(
                 icon = R.drawable.ic_logout,
                 title = R.string.account_logout_setting,
                 action = SettingAction.Exit
@@ -41,12 +52,7 @@ class AccountViewModelImpl : AccountViewModel() {
     }
 
     override fun getUserData() {
-        userDataLiveData.postValue(
-            UserDataModel(
-                avatar = "https://itc.ua/wp-content/uploads/2020/04/android_logo_stacked__rgb_.5.jpg",
-                fullName = "Honchar Ihor"
-            )
-        )
+        userDataLiveData.postValue(FilmsFactory.userData)
     }
 
 }

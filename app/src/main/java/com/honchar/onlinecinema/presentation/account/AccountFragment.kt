@@ -1,5 +1,6 @@
 package com.honchar.onlinecinema.presentation.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.honchar.onlinecinema.R
@@ -9,12 +10,14 @@ import com.honchar.onlinecinema.core.extensions.loadCircleImage
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.databinding.FragmentAccountBinding
 import com.honchar.onlinecinema.databinding.SettingItemBinding
+import com.honchar.onlinecinema.presentation.FilmsFactory
 import com.honchar.onlinecinema.presentation.account.adapter.AccountSettingHolder
 import com.honchar.onlinecinema.presentation.account.model.SettingAction
 import com.honchar.onlinecinema.presentation.account.model.UserDataModel
+import com.honchar.onlinecinema.presentation.films.FilmsActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AccountFragment: BaseFragment<FragmentAccountBinding>(
+class AccountFragment : BaseFragment<FragmentAccountBinding>(
     R.layout.fragment_account,
     FragmentAccountBinding::inflate
 ) {
@@ -29,12 +32,16 @@ class AccountFragment: BaseFragment<FragmentAccountBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getSettingsList()
-        viewModel.getUserData()
     }
 
     override fun initViews() {
         super.initViews()
         binding.rvSettings.adapter = settingsAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUserData()
     }
 
     override fun subscribeData() {
@@ -49,10 +56,32 @@ class AccountFragment: BaseFragment<FragmentAccountBinding>(
     }
 
     private fun onSettingClick(action: SettingAction) {
-        when(action){
-            SettingAction.Wishlist -> {}
-            SettingAction.Favorite -> {}
-            SettingAction.Exit -> {}
+        when (action) {
+            SettingAction.Wishlist -> {
+                val arrayList = ArrayList(FilmsFactory.getFilms().filter { it.isLater })
+                startActivity(Intent(requireContext(), FilmsActivity::class.java).apply {
+                    putParcelableArrayListExtra(FilmsActivity.FILMS, arrayList)
+                })
+            }
+            SettingAction.Favorite -> {
+
+                val arrayList = ArrayList(FilmsFactory.getFilms().filter { it.isLike })
+                startActivity(Intent(requireContext(), FilmsActivity::class.java).apply {
+                    putParcelableArrayListExtra(FilmsActivity.FILMS, arrayList)
+                })
+            }
+            SettingAction.Language -> {
+
+            }
+            SettingAction.Edit -> {
+                navigationHandler?.displayFragment(
+                    EditAccountFragment(),
+                    EditAccountFragment::class.java.name
+                )
+            }
+            SettingAction.Exit -> {
+
+            }
         }
     }
 }

@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_account_selected.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/ic_account_selector.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.193" />
+        <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/ic_bookmark.xml" value="0.2275" />
         <entry key="app/src/main/res/drawable/ic_empty_user.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/ic_favorite.xml" value="0.2275" />
@@ -23,11 +24,14 @@
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/ic_search_selected.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/ic_search_selector.xml" value="0.2285" />
+        <entry key="app/src/main/res/drawable/ic_send.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/ic_star.xml" value="0.2275" />
         <entry key="app/src/main/res/drawable/ic_video_library.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/ic_video_library_selected.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/ic_video_library_selector.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/selector_edit_fileds.xml" value="0.251" />
+        <entry key="app/src/main/res/drawable/selector_favorite.xml" value="0.219" />
+        <entry key="app/src/main/res/drawable/selector_like.xml" value="0.219" />
         <entry key="app/src/main/res/drawable/selector_tab_indicator.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/shape_tab_indicator_subs.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/shape_tab_indicator_subs_selected.xml" value="0.251" />
@@ -36,11 +40,15 @@
         <entry key="app/src/main/res/drawable/world_premier_info_bg.xml" value="0.325" />
         <entry key="app/src/main/res/layout-land/activity_film_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_film_details.xml" value="0.16818642350557245" />
+        <entry key="app/src/main/res/layout/activity_films.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/content_film_details.xml" value="0.17553191489361702" />
+        <entry key="app/src/main/res/layout/dialog_filters.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/filter_item.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/filter_item_add.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/fragment_edit_account.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/fragment_film.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/fragment_film_dateils.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/fragment_film_details.xml" value="0.25" />
@@ -53,6 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/home_categories_item.xml" value="0.18489583333333334" />
+        <entry key="app/src/main/res/layout/search_horizontal_item.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/search_item.xml" value="0.22" />
         <entry key="app/src/main/res/layout/setting_item.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/view_films_category.xml" value="0.25" />

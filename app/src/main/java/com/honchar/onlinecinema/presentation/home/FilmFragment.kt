@@ -27,9 +27,8 @@ class FilmFragment: BaseFragment<FragmentFilmBinding>(
             binding.ivPoster.loadImage(film.filmPoster, film.placeholder)
             binding.tvFilmName.text = film.filmName
             binding.tvRate.text = film.filmRate
-            binding.tvRelease.text = film.filmRelease
             binding.cvPoster.setOnClickListener {
-                openFilm(film.filmId)
+                openFilm(film)
             }
         }
     }

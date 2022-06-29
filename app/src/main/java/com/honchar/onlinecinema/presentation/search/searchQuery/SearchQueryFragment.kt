@@ -8,11 +8,11 @@ import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
 import com.honchar.onlinecinema.core.base.presentation.BaseFragment
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.core.extensions.openFilm
+import com.honchar.onlinecinema.core.views.FilmsCategory
 import com.honchar.onlinecinema.databinding.FragmentSearchQueryBinding
 import com.honchar.onlinecinema.databinding.SearchItemBinding
 import com.honchar.onlinecinema.presentation.search.SearchViewModel
 import com.honchar.onlinecinema.presentation.search.adapter.SearchHolders
-import com.honchar.onlinecinema.presentation.search.model.FindFilmModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchQueryFragment: BaseFragment<FragmentSearchQueryBinding>(
@@ -30,6 +30,7 @@ class SearchQueryFragment: BaseFragment<FragmentSearchQueryBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.findFilm(null)
         binding.etSearch.doAfterTextChanged { result ->
             result?.let { viewModel.findFilm(it.toString()) }
         }
@@ -46,9 +47,9 @@ class SearchQueryFragment: BaseFragment<FragmentSearchQueryBinding>(
         observeData(viewModel.filmsLiveData, ::showResult)
     }
 
-    private fun showResult(result: List<FindFilmModel>){
+    private fun showResult(result: List<FilmsCategory.Film>){
         filmsAdapter.loadItems(result)
     }
 
-    private fun onFilmClick(film: FindFilmModel) = openFilm(film.id)
+    private fun onFilmClick(film: FilmsCategory.Film) = openFilm(film)
 }

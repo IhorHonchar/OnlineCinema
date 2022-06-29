@@ -1,5 +1,6 @@
 package com.honchar.onlinecinema.presentation.filmDetails
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -14,12 +15,15 @@ import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.core.extensions.setClickListener
 import com.honchar.onlinecinema.core.views.AppBarStateChangeListener
+import com.honchar.onlinecinema.core.views.FilmsCategory
 import com.honchar.onlinecinema.databinding.ActivityFilmDetailsBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsItemBinding
+import com.honchar.onlinecinema.presentation.FilmsFactory
 import com.honchar.onlinecinema.presentation.filmDetails.adapter.ActorHolder
 import com.honchar.onlinecinema.presentation.filmDetails.model.ActorModel
 import com.honchar.onlinecinema.presentation.filmDetails.model.CategoryModel
 import com.honchar.onlinecinema.presentation.filmDetails.model.FilmDetailsModel
+import com.honchar.onlinecinema.presentation.films.FilmsActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmDetailsActivity : AppCompatActivity() {
@@ -31,8 +35,8 @@ class FilmDetailsActivity : AppCompatActivity() {
 
     private val viewModel: FilmDetailsViewModel by viewModel()
 
-    private val filmId: String?
-        get() = intent.getStringExtra(FILM_ID)
+    private val film: FilmsCategory.Film?
+        get() = intent.getParcelableExtra(FILM)
 
     private val adapter = BaseViewBindingAdapter()
         .map(
@@ -46,41 +50,36 @@ class FilmDetailsActivity : AppCompatActivity() {
         _binding = ActivityFilmDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initViews()
         initListeners()
         initPlayer()
-        subscribeData()
-        viewModel.getFilm(filmId.orEmpty())
+        initViews()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        exoPlayer?.stop()
     }
 
     private fun initViews() {
-        binding.rvStars.adapter = adapter
-    }
+        binding.rvStars?.adapter = adapter
 
-    private fun subscribeData() {
-        observeData(viewModel.filmDetails, ::initData)
-    }
+        film?.let {
+            with(binding) {
+                tvFilmName?.text = it.filmName
+                tvFilmDesc?.text = it.desc
+                ivLike?.isChecked = it.isLike
+                ivWatchLater?.isChecked = it.isLater
+                initChips(it.categories)
+                adapter.loadItems(it.actors)
+            }
 
-    private fun initData(film: FilmDetailsModel) {
-        with(binding) {
-            tvFilmName.text = film.name
-            tvFilmDesc.text = film.description
-            initChips(film.categories)
-            adapter.loadItems(film.actors)
-        }
-
-        try {
-            val mediaItem: MediaItem = MediaItem.fromUri(Uri.parse(film.videoUrl))
-            exoPlayer?.setMediaItem(mediaItem)
-            exoPlayer?.prepare()
-        } catch (e: Exception) {
-            Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
+            try {
+                val mediaItem: MediaItem = MediaItem.fromUri(Uri.parse(it.videoUrl))
+                exoPlayer?.setMediaItem(mediaItem)
+                exoPlayer?.prepare()
+            } catch (e: Exception) {
+                Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -102,17 +101,18 @@ class FilmDetailsActivity : AppCompatActivity() {
             .withCornerSize(this.resources.getDimension(R.dimen.default_card_corner_radius))
         categories.forEach { category ->
             Chip(this).apply {
-                text = category.name
+                text = getString(category.name)
                 shapeAppearanceModel = chipCorners
                 setOnClickListener { onChipClick(category) }
-            }.let(binding.cgCategories::addView)
+            }.let{
+                binding.cgCategories?.addView(it)
+            }
         }
     }
 
     private fun initListeners() {
-        binding.ivMore.setClickListener(::onMoreClick)
 
-        binding.appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener(){
+        binding.appBarLayout?.addOnOffsetChangedListener(object : AppBarStateChangeListener(){
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
                 when(state) {
                     State.COLLAPSED->{
@@ -126,20 +126,20 @@ class FilmDetailsActivity : AppCompatActivity() {
                     }
                 }
             }
-
         })
-    }
 
-    private fun onLikeClicked() {
-
+        binding.ivLike?.setOnCheckedChangeListener { _, isChecked ->
+            film?.isLike = isChecked
+            FilmsFactory.getFilms().find { it.filmId == film?.filmId }?.isLike = isChecked
+        }
+        binding.ivWatchLater?.setOnCheckedChangeListener { _, isChecked ->
+            film?.isLater = isChecked
+            FilmsFactory.getFilms().find { it.filmId == film?.filmId }?.isLater = isChecked
+        }
+        binding.ivShare?.setClickListener(::onShareClick)
     }
 
     private fun onShareClick() {
-
-    }
-
-
-    private fun onMoreClick() {
 
     }
 
@@ -148,10 +148,13 @@ class FilmDetailsActivity : AppCompatActivity() {
     }
 
     private fun onChipClick(category: CategoryModel) {
-        Toast.makeText(this, category.id.plus(category.name), Toast.LENGTH_SHORT).show()
+        val arrayList = ArrayList(FilmsFactory.getFilms().filter { it.categories.contains(category) })
+        startActivity(Intent(this, FilmsActivity::class.java).apply {
+            putParcelableArrayListExtra(FilmsActivity.FILMS, arrayList)
+        })
     }
 
     companion object {
-        const val FILM_ID = "film_id"
+        const val FILM = "film"
     }
 }

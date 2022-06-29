@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvFilm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/description_text_color"
+    android:layout_marginTop="@dimen/default_margin"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:rippleColor="@color/primary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvPoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivFilmPreview"
+                android:layout_width="@dimen/film_category_preview_height"
+                android:layout_height="@dimen/film_category_preview_height"
+                android:scaleType="centerCrop"
+                tools:background="@color/white" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFilmName"
+            style="@style/CategoryFilmTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cvPoster"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Dune" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:drawablePadding="@dimen/film_category_margin"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:textColor="@color/description_text_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFilmName"
+            app:layout_constraintTop_toBottomOf="@+id/tvFilmName"
+            tools:text="3/okerjgoeiehviuerhv iuerhiuehiuehiurh iuhjrgijeoijgo jerjgeojrgu ehruihgreuih geiurh grhi uerhgiuehehgiue rh giuehrg iurehguhei rhgie hgieurh gieuhgeiur geiu heiur " />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFilmRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="@dimen/film_category_margin"
+            android:textColor="@color/description_text_color"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cvPoster"
+            tools:text="3/8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

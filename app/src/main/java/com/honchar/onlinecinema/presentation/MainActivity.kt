@@ -70,16 +70,6 @@ class MainActivity : AppCompatActivity(), NavigationHandler {
         fragment?.let { displayFragment(it, it.javaClass::class.java.name) }
     }
 
-    private inline fun <reified T : Fragment> exitTo() {
-        var count = supportFragmentManager.backStackEntryCount
-        while (count != 0
-            && supportFragmentManager.getBackStackEntryAt(count - 1).name != T::class.java.name
-        ) {
-            supportFragmentManager.popBackStack()
-            count--
-        }
-    }
-
     companion object {
         const val IS_GUEST = "is_guest"
     }

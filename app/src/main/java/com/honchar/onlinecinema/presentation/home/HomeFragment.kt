@@ -1,14 +1,11 @@
 package com.honchar.onlinecinema.presentation.home
 
-import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.core.base.adapter.BaseFragmentAdapter
 import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
-import com.honchar.onlinecinema.core.base.adapter.HorizontalMarginItemDecoration
 import com.honchar.onlinecinema.core.base.presentation.BaseFragment
 import com.honchar.onlinecinema.core.extensions.observeData
 import com.honchar.onlinecinema.core.extensions.openFilm
@@ -41,23 +38,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         observeData(viewModel.topFilmsLiveData, ::initFilms)
     }
 
-    override fun onFilmClick(film: FilmsCategory.Film) = openFilm(film.filmId)
+    override fun onFilmClick(film: FilmsCategory.Film) = openFilm(film)
 
     override fun onSeeAllClick(filmCategory: FilmsCategory.FilmCategory) {
         Toast.makeText(requireContext(), filmCategory.filmCategoryTitle, Toast.LENGTH_SHORT).show()
     }
 
     private fun initFilms(films: List<FilmsCategory.Film>) {
-        val list = arrayListOf<FilmsCategory.Film>()
-        with(films.size) {
-            repeat(this + 3) { index ->
-                list.add(films[(index + this) % this])
-            }
-        }
-        initCardPages(if (films.size < 3) films else list)
+        initFilmPages(films)
     }
 
-    private fun initCardPages(films: List<FilmsCategory.Film>) {
+    private fun initFilmPages(films: List<FilmsCategory.Film>) {
         val fragments = mutableListOf<BaseFragmentAdapter.FragmentInfoContainer>()
         films.forEach { film ->
             fragments.add(

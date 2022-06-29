@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,131 +7,10 @@
     android:backgroundTint="?colorOnSecondary"
     android:background="@color/black">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/exoPlayerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentScrim="@android:color/transparent"
-            app:layout_scrollFlags="scroll">
-
-            <androidx.media3.ui.PlayerView
-                android:id="@+id/exoPlayerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvFilmName"
-                style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
-                android:textSize="@dimen/detail_film_name_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Venom" />
-
-            <View
-                android:id="@+id/vDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:background="@color/description_text_color"
-                android:layout_marginHorizontal="@dimen/default_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFilmName" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/cgCategories"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginHorizontal="@dimen/default_margin"
-                app:layout_constraintEnd_toStartOf="@id/ivMore"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vDivider" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivMore"
-                android:layout_width="@dimen/film_details_action_btns_size"
-                android:layout_height="@dimen/film_details_action_btns_size"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?selectableItemBackgroundBorderless"
-                app:layout_constraintEnd_toEndOf="@id/vDivider"
-                app:layout_constraintTop_toTopOf="@id/cgCategories"
-                app:srcCompat="@drawable/ic_more"
-                app:tint="@color/description_text_color" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvFilmDescTitle"
-                style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
-                android:text="@string/film_details_desc_title"
-                app:layout_constraintStart_toStartOf="@id/vDivider"
-                app:layout_constraintTop_toBottomOf="@id/cgCategories" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvFilmDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/DefaultTextStyle"
-                android:layout_marginTop="@dimen/small_default_margin"
-                app:layout_constraintEnd_toEndOf="@id/ivMore"
-                app:layout_constraintStart_toStartOf="@id/tvFilmDescTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvFilmDescTitle"
-                tools:text="okmevoemrvevn eornerongergn oerngerngierjn oienrginin rng n nggiengrieng ejrngejnrgekrjng erngiejnrgeijgnei" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvStarCastTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TitleTextStyle"
-                app:layout_constraintTop_toBottomOf="@id/tvFilmDesc"
-                app:layout_constraintStart_toStartOf="@id/tvFilmDesc"
-                android:layout_marginTop="@dimen/default_margin"
-                android:text="@string/film_details_star_cast_title"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvStars"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tvStarCastTitle"
-                android:layout_marginTop="@dimen/small_default_margin"
-                tools:listitem="@layout/view_films_item"/>
+        android:layout_height="match_parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

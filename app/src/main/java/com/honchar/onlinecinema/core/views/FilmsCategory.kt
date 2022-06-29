@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
+import com.honchar.onlinecinema.R
 import com.honchar.onlinecinema.core.base.adapter.BaseViewBindingAdapter
 import com.honchar.onlinecinema.core.base.adapter.Holder
 import com.honchar.onlinecinema.core.extensions.loadImage
@@ -14,6 +15,8 @@ import com.honchar.onlinecinema.core.extensions.setClickListener
 import com.honchar.onlinecinema.databinding.ViewFilmsCategoryBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsItemBinding
 import com.honchar.onlinecinema.databinding.ViewFilmsMoreItemBinding
+import com.honchar.onlinecinema.presentation.filmDetails.model.ActorModel
+import com.honchar.onlinecinema.presentation.filmDetails.model.CategoryModel
 import kotlinx.android.parcel.Parcelize
 
 class FilmsCategory @JvmOverloads constructor(
@@ -76,13 +79,17 @@ class FilmsCategory @JvmOverloads constructor(
 
     @Parcelize
     data class Film(
-        val filmId: String,
+        val filmId: String = "",
         val filmName: String,
         val filmPoster: String,
         val filmRate: String,
-        val filmViews: String,
-        val filmRelease: String,
-        @DrawableRes val placeholder: Int
+        val desc: String,
+        val videoUrl: String = "https://www.nusenglish.com/wp-content/uploads/2022/05/videoplayback.mp4",
+        var isLike: Boolean = false,
+        var isLater: Boolean = false,
+        val actors: List<ActorModel>,
+        val categories: List<CategoryModel>,
+        @DrawableRes val placeholder: Int = R.drawable.ic_launcher_foreground
     ): Parcelable
 
     data class FilmCategory(
@@ -101,7 +108,6 @@ class FilmsCategory @JvmOverloads constructor(
             binding.ivFilmPreview.loadImage(item.filmPoster, item.placeholder)
             binding.tvFilmName.text = item.filmName
             binding.tvFilmRate.text = item.filmRate
-            binding.tvFilmViews.text = item.filmViews
             binding.root.setOnClickListener {
                 clickListener?.onFilmClick(item)
             }

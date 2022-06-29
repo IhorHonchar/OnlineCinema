@@ -12,5 +12,7 @@ data class AccountSettingModel(
 sealed interface SettingAction{
     object Favorite: SettingAction
     object Wishlist: SettingAction
+    object Edit: SettingAction
+    object Language: SettingAction
     object Exit: SettingAction
 }
